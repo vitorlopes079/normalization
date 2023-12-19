@@ -1,4 +1,7 @@
 # Normalization Project
 
 ## About
-This project is a study on implementing data normalization using the `createEntityAdapter` hook from Redux Toolkit. It serves as a practical example to understand and apply normalization concepts in state management.
+createEntityAdapter is a utility from Redux Toolkit that simplifies the management of entity collections (like lists of comments, users, posts, etc.) in your state. It provides a standardized way to store your data in a 'normalized' form and includes a set of reusable reducer functions and selectors.
+
+Normalization
+Normalization is a design practice where you structure your state such that each item is stored only once and is referenced by IDs elsewhere in your state. This approach is beneficial for handling complex state shapes, making updates more predictable, and improving performance.

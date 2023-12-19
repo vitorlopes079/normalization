@@ -1,34 +1,26 @@
-import React, {useEffect} from 'react'
-import { useDispatch, useSelector } from 'react-redux';
-import { fetchComments, selectComments, selectCommentsLoading, selectCommentsError } from './commentsSlice';
-
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchComments } from "./commentsSlice";
+import { selectAllComments } from "./commentsSlice";
 
 const Comments = () => {
-const dispatch = useDispatch();
-const comments = useSelector(selectComments);
-const loading = useSelector(selectCommentsLoading);
-const error = useSelector(selectCommentsError);
+  const dispatch = useDispatch();
+  const comments = useSelector(selectAllComments);
 
-
-useEffect(() => {
-  dispatch(fetchComments())
-}, [])
-
-if (loading) return <p>Loading...</p>;
-if (error) return <p>Error: {error}</p>;
-
+  useEffect(() => {
+    dispatch(fetchComments());
+  }, [dispatch]);
 
   return (
     <div>
-      <h2>Comments</h2>
-      {comments.map(comment => (
+      {comments.map((comment) => (
         <div key={comment.id}>
-          <p>{comment.name}</p>
+          <h1>{comment.name}</h1>
           <p>{comment.body}</p>
         </div>
       ))}
     </div>
-  )
-}
+  );
+};
 
-export default Comments
+export default Comments;
