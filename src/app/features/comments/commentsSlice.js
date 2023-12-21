@@ -13,6 +13,15 @@ export const fetchComments = createAsyncThunk(
   }
 );
 
+export const deleteComment = createAsyncThunk(
+  'comments/deleteComment', async (id) => {
+    await fetch(`https://jsonplaceholder.typicode.com/comments/${id}`, {
+      method: 'DELETE',
+    })
+    return id
+  }
+)
+
 const commentsAdapter = createEntityAdapter({
   selectId: (comment) => comment.id,
 });
@@ -37,6 +46,17 @@ const commentsSlice = createSlice({
     builder.addCase(fetchComments.rejected, (state, action) => {
       state.loading = false;
       state.error = action.error.message;
+    });
+    builder.addCase(deleteComment.pending, (state) => {
+      state.loading = true;
+    });
+    builder.addCase(deleteComment.rejected, (state, action) => {
+      state.loading = false;
+      state.error = action.error.message;
+    });
+    builder.addCase(deleteComment.fulfilled, (state, action) => {
+      state.loading = false;
+      commentsAdapter.removeOne(state, action.payload)
     });
   },
 });
